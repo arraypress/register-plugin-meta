@@ -62,12 +62,12 @@ if ( ! class_exists( __NAMESPACE__ . '\\Plugin_Meta' ) ) :
 		/**
 		 * @var array Array of external links.
 		 */
-		protected array $external_links = array();
+		protected array $external_links = [];
 
 		/**
 		 * @var array Array of UTM arguments.
 		 */
-		protected array $utm_args = array();
+		protected array $utm_args = [];
 
 		/**
 		 * Plugin_Meta constructor.
@@ -78,7 +78,7 @@ if ( ! class_exists( __NAMESPACE__ . '\\Plugin_Meta' ) ) :
 		 *
 		 * @throws \InvalidArgumentException If the plugin file path is empty.
 		 */
-		public function __construct( string $file = '', array $external_links = array(), array $utm_args = array() ) {
+		public function __construct( string $file = '', array $external_links = [], array $utm_args = [] ) {
 			if ( empty( $file ) ) {
 				throw new \InvalidArgumentException( 'Plugin file path must be provided.' );
 			}
@@ -149,13 +149,13 @@ if ( ! class_exists( __NAMESPACE__ . '\\Plugin_Meta' ) ) :
 
 					$key = sanitize_key( $key );
 
-					$defaults  = array(
+					$defaults  = [
 						'action'  => false,
 						'label'   => '',
 						'url'     => '',
 						'utm'     => true,
 						'new_tab' => true, // Default to opening in a new tab
-					);
+					];
 					$link_data = wp_parse_args( $link_data, $defaults );
 
 					if ( $link_data['action'] ) {
@@ -190,11 +190,11 @@ if ( ! class_exists( __NAMESPACE__ . '\\Plugin_Meta' ) ) :
 		 * @return string URL with UTM parameters.
 		 */
 		private function get_plugin_row_utm_url( string $url = '' ): string {
-			$args = wp_parse_args( $this->utm_args, array(
+			$args = wp_parse_args( $this->utm_args, [
 				'utm_source'   => 'plugins-page',
 				'utm_medium'   => 'plugin-row',
 				'utm_campaign' => 'admin',
-			) );
+			] );
 
 			return add_query_arg( $args, $url );
 		}

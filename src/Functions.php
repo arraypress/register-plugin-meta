@@ -61,8 +61,8 @@ if ( ! function_exists( 'register_plugin_meta' ) ) {
 	 */
 	function register_plugin_meta(
 		string $file,
-		array $external_links = array(),
-		array $utm_args = array(),
+		array $external_links = [],
+		array $utm_args = [],
 		?callable $error_callback = null
 	): ?Plugin_Meta {
 		try {
@@ -93,39 +93,39 @@ if ( ! function_exists( 'register_edd_plugin_meta' ) ) {
 	 */
 	function register_edd_plugin_meta(
 		string $file,
-		string $settings_tab,
-		string $settings_section,
-		array $external_links = array(),
-		array $utm_args = array(),
+		string $settings_tab = '',
+		string $settings_section = '',
+		array $external_links = [],
+		array $utm_args = [],
 		?callable $error_callback = null
 	): ?Plugin_Meta {
-		// Default links specific to ArrayPress.
-		$default_links = array(
-			'support'    => array(
+// Default links specific to ArrayPress.
+		$default_links = [
+			'support'    => [
 				'label' => __( 'Support', 'arraypress' ),
 				'url'   => 'https://arraypress.com/support',
-			),
-			'extensions' => array(
+			],
+			'extensions' => [
 				'label' => __( 'Extensions', 'arraypress' ),
 				'url'   => 'https://arraypress.com/products',
-			)
-		);
+			],
+		];
 
 		// Merge the provided external links with the defaults.
 		$external_links = wp_parse_args( $external_links, $default_links );
 
 		// Add EDD-specific 'Settings' link if provided.
 		if ( function_exists( 'edd_get_admin_url' ) && $settings_tab && $settings_section ) {
-			$external_links['settings'] = array(
+			$external_links['settings'] = [
 				'action' => true,
 				'label'  => __( 'Settings', 'arraypress' ),
-				'url'    => edd_get_admin_url( array(
+				'url'    => edd_get_admin_url( [
 					'page'    => 'edd-settings',
 					'tab'     => $settings_tab,
 					'section' => $settings_section,
-				) ),
+				] ),
 				'utm'    => true,
-			);
+			];
 		}
 
 		// Initialize the Plugin_Meta with the merged links and UTM parameters.
