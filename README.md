@@ -31,7 +31,7 @@ an example of how to use it:
 
 ```php 
 // Include the Composer-generated autoload file.
-require_once dirname(__FILE__) . '/vendor/autoload.php';
+require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 
 // Define an array of external links to add to your plugin.
 $external_links = array(
@@ -51,7 +51,6 @@ $external_links = array(
 		'url'    => admin_url( 'options-general.php?page=plugin-settings' ),
 		'utm'    => false,
 	),
-	// Add more link entries as needed.
 );
 
 // Define UTM parameters if desired.
@@ -62,7 +61,7 @@ $utm_args = array(
 );
 
 // Create an instance of the Plugin_Meta class.
-\ArrayPress\Utils\WP\register_plugin_meta(__FILE__, $external_links, $utm_args );
+\ArrayPress\Utils\WP\register_plugin_meta( __FILE__, $external_links, $utm_args );
 ```
 
 1. The `vendor/autoload.php` file is included to autoload classes from Composer.
