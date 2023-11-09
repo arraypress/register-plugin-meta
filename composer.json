@@ -1,0 +1,15 @@
+{
+  "name": "arraypress/wp-utils-plugin-meta",
+  "description": "Simplifies WordPress plugin development by enabling easy addition of custom action links and row meta links to the WordPress admin Plugins page.",
+  "type": "library",
+  "license": "GPL-2.0-or-later",
+  "minimum-stability": "stable",
+  "require": {
+  },
+  "autoload": {
+    "psr-4": {
+      "ArrayPress\\Utils\\WP\\": "src/"
+    },
+    "files": ["src/Functions.php"]
+  }
+}
