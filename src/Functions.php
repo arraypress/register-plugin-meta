@@ -117,14 +117,15 @@ if ( ! function_exists( 'register_edd_plugin_meta' ) ) {
 		// Add EDD-specific 'Settings' link if provided.
 		if ( function_exists( 'edd_get_admin_url' ) && $settings_tab && $settings_section ) {
 			$external_links['settings'] = [
-				'action' => true,
-				'label'  => __( 'Settings', 'arraypress' ),
-				'url'    => edd_get_admin_url( [
+				'action'  => true,
+				'label'   => __( 'Settings', 'arraypress' ),
+				'url'     => edd_get_admin_url( [
 					'page'    => 'edd-settings',
 					'tab'     => $settings_tab,
 					'section' => $settings_section,
 				] ),
-				'utm'    => true,
+				'utm'     => true,
+				'new_tab' => false
 			];
 		}
 
