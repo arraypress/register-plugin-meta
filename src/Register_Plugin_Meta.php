@@ -1,15 +1,15 @@
 <?php
 /**
- * Plugin Meta Class
+ * Register Plugin Meta Class
  *
  * This class handles the registration of custom plugin action links and row meta links,
  * allowing developers to easily add external links to the plugin's action links or row meta section
  * in the WordPress admin Plugins page.
  *
- * @package     ArrayPress/Utils/WP/Plugin_Meta
- * @copyright   Copyright (c) 2023, ArrayPress Limited
+ * @package     arraypress/register-plugin-meta
+ * @copyright   Copyright (c) 2024, ArrayPress Limited
  * @license     GPL2+
- * @since       1.0.0
+ * @version     1.0.0
  * @author      David Sherlock
  * @description Provides a flexible way to enhance WordPress plugin functionality with custom admin links.
  */
@@ -19,7 +19,7 @@ namespace ArrayPress\Utils\WP;
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( __NAMESPACE__ . '\\Plugin_Meta' ) ) :
+if ( ! class_exists( __NAMESPACE__ . '\\Register_Plugin_Meta' ) ) :
 
 	/**
 	 * Class Plugin_Meta
@@ -47,7 +47,7 @@ if ( ! class_exists( __NAMESPACE__ . '\\Plugin_Meta' ) ) :
 	 *
 	 * $plugin_meta = new Plugin_Meta( __FILE__, $external_links, $utm_args );
 	 */
-	class Plugin_Meta {
+	class Register_Plugin_Meta {
 
 		/**
 		 * @var string Plugin file path.
@@ -115,7 +115,7 @@ if ( ! class_exists( __NAMESPACE__ . '\\Plugin_Meta' ) ) :
 		 *
 		 * @return array Updated plugin action links.
 		 */
-		public function register_plugin_action_links( $links, $plugin_file ): array {
+		public function register_plugin_action_links( array $links, string $plugin_file ): array {
 			return $this->register_links( $links, $plugin_file, 'action' );
 		}
 
@@ -127,26 +127,22 @@ if ( ! class_exists( __NAMESPACE__ . '\\Plugin_Meta' ) ) :
 		 *
 		 * @return array Updated plugin row meta links.
 		 */
-		public function register_plugin_row_meta( $links, $plugin_file ): array {
+		public function register_plugin_row_meta( array $links, string $plugin_file ): array {
 			return $this->register_links( $links, $plugin_file, 'row_meta' );
 		}
 
 		/**
 		 * Register plugin links.
 		 *
-		 * @param array  $links          Existing plugin links.
-		 * @param string $plugin_file    Current plugin file.
-		 * @param bool   $is_action_link Whether it's an action link or row meta link.
+		 * @param array  $links       Existing plugin links.
+		 * @param string $plugin_file Current plugin file.
+		 * @param string $position    The position where the links should be added ('action' or 'row_meta').
 		 *
 		 * @return array Updated plugin links.
 		 */
-		protected function register_links( $links, $plugin_file, $is_action_link ): array {
+		protected function register_links( array $links, string $plugin_file, string $position ): array {
 			if ( strpos( $plugin_file, $this->basename ) !== false ) {
 				foreach ( $this->external_links as $key => $link_data ) {
-					if ( empty( $key ) ) {
-						continue; // Skip empty keys
-					}
-
 					$key = sanitize_key( $key );
 
 					$defaults  = [
@@ -164,7 +160,7 @@ if ( ! class_exists( __NAMESPACE__ . '\\Plugin_Meta' ) ) :
 						$link_data['position'] = 'row_meta';
 					}
 
-					if ( $is_action_link === $link_data['position'] ) {
+					if ( $position === $link_data['position'] ) {
 						$url            = $link_data['url'];
 						$label          = $link_data['label'];
 						$should_add_utm = $link_data['utm'];

@@ -1,33 +1,28 @@
 # WordPress Plugin Meta Library
 
-This library handles the registration of custom plugin action links and row meta links, allowing developers to easily add external links to the plugin's action links or row meta section in the WordPress admin Plugins page.
+This library handles the registration of custom plugin action links and row meta links, allowing developers to easily
+add external links to the plugin's action links or row meta section in the WordPress admin Plugins page.
 
-## Installation and set up
+## Minimum Requirements ##
 
-The extension in question needs to have a `composer.json` file, specifically with the following:
+* **PHP:** 7.4
 
-```json 
-{
-  "require": {
-    "arraypress/wp-utils-plugin-meta": "*"
-  },
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/arraypress/wp-utils-plugin-meta"
-    }
-  ]
-}
+## Installation ##
+
+Register Plugin Meta is a developer library, not a plugin, which means you need to include it somewhere in your own
+project.
+
+You can use Composer:
+
+```bash
+composer require arraypress/register-plugin-meta
 ```
-
-Once set up, run `composer install --no-dev`. This should create a new `vendors/` folder
-with `arraypress/wp-utils-plugin-meta/` inside.
 
 ## Using the Plugin Meta Library
 
-The `Plugin_Meta` class simplifies the process of adding custom action links and row meta links to your WordPress
-plugin. You can use it to enhance your plugin's functionality by adding external links to the admin Plugins page. Here's
-an example of how to use it:
+The `register_plugin_meta` function simplifies the process of adding custom action links and row meta links to your
+WordPress plugin. You can use it to enhance your plugin's functionality by adding external links to the admin Plugins
+page. Here's an example of how to use it:
 
 ```php 
 // Include the Composer-generated autoload file.
@@ -61,7 +56,7 @@ $utm_args = array(
 );
 
 // Create an instance of the Plugin_Meta class.
-\ArrayPress\Utils\WP\register_plugin_meta( __FILE__, $external_links, $utm_args );
+register_plugin_meta( __FILE__, $external_links, $utm_args );
 ```
 
 1. The `vendor/autoload.php` file is included to autoload classes from Composer.
@@ -87,7 +82,11 @@ WordPress plugin's admin page.
 Contributions to this library are highly appreciated. Raise issues on GitHub or submit pull requests for bug
 fixes or new features. Share feedback and suggestions for improvements.
 
-## License
+## License: GPLv2 or later
 
-This library is licensed under
-the [GNU General Public License v2.0](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html).
+This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public
+License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later
+version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.

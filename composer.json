@@ -1,15 +1,25 @@
 {
-  "name": "arraypress/wp-utils-plugin-meta",
+  "name": "arraypress/register-plugin-meta",
   "description": "Simplifies WordPress plugin development by enabling easy addition of custom action links and row meta links to the WordPress admin Plugins page.",
+  "homepage": "https://github.com/arraypress/register-plugin-meta/",
   "type": "library",
   "license": "GPL-2.0-or-later",
-  "minimum-stability": "stable",
+  "authors": [
+    {
+      "name": "David Sherlock",
+      "homepage": "https://arraypress.com/"
+    }
+  ],
   "require": {
+    "php": "^7.4 || ^8.0"
   },
   "autoload": {
     "psr-4": {
       "ArrayPress\\Utils\\WP\\": "src/"
     },
-    "files": ["src/Functions.php"]
-  }
+    "files": [
+      "src/Functions.php"
+    ]
+  },
+  "minimum-stability": "stable"
 }
