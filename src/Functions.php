@@ -46,7 +46,7 @@
 
 namespace {
 
-	use ArrayPress\Utils\WP\Plugin_Meta;
+	use ArrayPress\Utils\WP\Register_Plugin_Meta;
 
 	if ( ! function_exists( 'register_plugin_meta' ) ) {
 		/**
@@ -57,16 +57,16 @@ namespace {
 		 * @param array         $utm_args       Array of UTM arguments.
 		 * @param callable|null $error_callback Callback function for error handling.
 		 *
-		 * @return Plugin_Meta|null The initialized Plugin_Meta or null on failure.
+		 * @return Register_Plugin_Meta|null The initialized Plugin_Meta or null on failure.
 		 */
 		function register_plugin_meta(
 			string $file,
 			array $external_links = [],
 			array $utm_args = [],
 			?callable $error_callback = null
-		): ?Plugin_Meta {
+		): ?Register_Plugin_Meta {
 			try {
-				return new Plugin_Meta( $file, $external_links, $utm_args );
+				return new Register_Plugin_Meta( $file, $external_links, $utm_args );
 			} catch ( Exception $e ) {
 				if ( is_callable( $error_callback ) ) {
 					call_user_func( $error_callback, $e );
@@ -89,7 +89,7 @@ namespace {
 		 * @param array         $utm_args         Array of UTM arguments.
 		 * @param callable|null $error_callback   Callback function for error handling.
 		 *
-		 * @return Plugin_Meta|null The initialized Plugin_Meta or null on failure.
+		 * @return Register_Plugin_Meta|null The initialized Plugin_Meta or null on failure.
 		 */
 		function register_edd_plugin_meta(
 			string $file,
@@ -98,7 +98,7 @@ namespace {
 			array $external_links = [],
 			array $utm_args = [],
 			?callable $error_callback = null
-		): ?Plugin_Meta {
+		): ?Register_Plugin_Meta {
 			$default_links = [
 				'support'    => [
 					'label' => __( 'Support', 'arraypress' ),
