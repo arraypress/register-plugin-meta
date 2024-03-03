@@ -106,7 +106,7 @@ namespace {
 				],
 				'extensions' => [
 					'label' => __( 'Extensions', 'arraypress' ),
-					'url'   => 'https://arraypress.com/products',
+					'url'   => 'https://arraypress.com/plugins',
 				],
 			];
 

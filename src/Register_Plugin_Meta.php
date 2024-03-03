@@ -19,34 +19,17 @@ namespace ArrayPress\Utils\WP;
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
+use InvalidArgumentException;
+use function add_filter;
+use function esc_html;
+use function esc_url;
+use function plugin_basename;
+use function sanitize_key;
+use function wp_kses_post;
+use function wp_parse_args;
+
 if ( ! class_exists( __NAMESPACE__ . '\\Register_Plugin_Meta' ) ) :
 
-	/**
-	 * Class Plugin_Meta
-	 *
-	 * Handles the registration of custom plugin action links and row meta links.
-	 * This class allows developers to add external links to the plugin's action links or row meta section
-	 * in the WordPress admin Plugins page.
-	 *
-	 * Usage:
-	 * $external_links = array(
-	 *     array(
-	 *         'action' => true,          // Whether to use action link (true) or row meta link (false).
-	 *         'label' => __('Support', 'your-text-domain'), // Link label.
-	 *         'url' => 'https://example.com/support',       // Link URL.
-	 *         'utm' => true,              // Whether to add UTM parameters.
-	 *     ),
-	 *     // Add more link entries as needed.
-	 * );
-	 *
-	 * $utm_args = array(
-	 *     'utm_source'   => 'your-source',
-	 *     'utm_medium'   => 'your-medium',
-	 *     'utm_campaign' => 'your-campaign',
-	 * );
-	 *
-	 * $plugin_meta = new Plugin_Meta( __FILE__, $external_links, $utm_args );
-	 */
 	class Register_Plugin_Meta {
 
 		/**
@@ -76,23 +59,23 @@ if ( ! class_exists( __NAMESPACE__ . '\\Register_Plugin_Meta' ) ) :
 		 * @param array  $external_links Array of external links.
 		 * @param array  $utm_args       Array of UTM arguments.
 		 *
-		 * @throws \InvalidArgumentException If the plugin file path is empty.
+		 * @throws InvalidArgumentException If the plugin file path is empty.
 		 */
 		public function __construct( string $file = '', array $external_links = [], array $utm_args = [] ) {
 			if ( empty( $file ) ) {
-				throw new \InvalidArgumentException( 'Plugin file path must be provided.' );
+				throw new InvalidArgumentException( 'Plugin file path must be provided.' );
 			}
 
 			if ( ! is_array( $external_links ) ) {
-				throw new \InvalidArgumentException( '$external_links must be an array.' );
+				throw new InvalidArgumentException( '$external_links must be an array.' );
 			}
 
 			if ( ! is_array( $utm_args ) ) {
-				throw new \InvalidArgumentException( '$utm_args must be an array.' );
+				throw new InvalidArgumentException( '$utm_args must be an array.' );
 			}
 
 			$this->file           = $file;
-			$this->basename       = \plugin_basename( $this->file );
+			$this->basename       = plugin_basename( $this->file );
 			$this->external_links = $external_links;
 			$this->utm_args       = $utm_args;
 
@@ -169,7 +152,7 @@ if ( ! class_exists( __NAMESPACE__ . '\\Register_Plugin_Meta' ) ) :
 						if ( $url && $label ) {
 							$utm_url       = $should_add_utm ? $this->get_plugin_row_utm_url( $url ) : $url;
 							$target        = $new_tab ? 'target="_blank"' : ''; // New tab or same tab
-							$links[ $key ] = '<a href="' . esc_url( $utm_url ) . '" ' . $target . '>' . esc_html( $label ) . '</a>';
+							$links[ $key ] = '<a href="' . esc_url( $utm_url ) . '" ' . $target . '>' . wp_kses_post( $label ) . '</a>';
 						}
 					}
 				}
