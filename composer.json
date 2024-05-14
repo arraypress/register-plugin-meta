@@ -22,7 +22,7 @@
       "ArrayPress\\Utils\\WP\\": "src/"
     },
     "files": [
-      "src/Functions.php"
+      "src/Utilities.php"
     ]
   },
   "minimum-stability": "dev",
